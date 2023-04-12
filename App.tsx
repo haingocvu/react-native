@@ -5,50 +5,60 @@
  * @format
  */
 
-import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import React, {useState} from 'react';
+import {StyleSheet, View, SafeAreaView, FlatList} from 'react-native';
+import GoalItem from './components/goal-item';
+import GoalInput from './components/goal-input';
 
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [listGoals, setListGoals] = useState<Array<{id: string; text: string}>>(
+    [],
+  );
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const handleAddNew = (goalText: string) => {
+    setListGoals(curGoalList => [
+      ...curGoalList,
+      {id: Math.random().toString(), text: goalText},
+    ]);
+  };
+
+  const handleDeleteItem = (id: string) => {
+    setListGoals(curList => curList.filter(it => it.id !== id));
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Text style={styles.textBig}>Hello world</Text>
+    <SafeAreaView>
+      <View style={styles.container}>
+        <GoalInput initValue="" onAddNew={handleAddNew} />
+        <View style={styles.goalContainer}>
+          <FlatList
+            data={listGoals}
+            renderItem={({item}) => {
+              console.log(item.id);
+              return (
+                <GoalItem
+                  id={item.id}
+                  text={item.text}
+                  onDelete={handleDeleteItem}
+                />
+              );
+            }}
+            keyExtractor={(item, index) => item.id + index}
+          />
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  textBig: {
-    fontWeight: '800',
-    fontSize: 52,
+  container: {
+    marginTop: 20,
+    height: '100%',
+    padding: 16,
+  },
+  goalContainer: {
+    flex: 8,
   },
 });
 
