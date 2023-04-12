@@ -17,11 +17,14 @@ const GoalItem: FC<IGoalItemProps> = props => {
   };
 
   return (
-    <Pressable onPress={onDeleteHandler}>
-      <View style={styles.goalItem}>
+    <View style={styles.goalItem}>
+      <Pressable
+        android_ripple={{color: '#dddddd'}}
+        onPress={onDeleteHandler}
+        style={({pressed}) => pressed && styles.itemPressed}>
         <Text style={styles.itemTextStyle}>{text}</Text>
-      </View>
-    </Pressable>
+      </Pressable>
+    </View>
   );
 };
 
