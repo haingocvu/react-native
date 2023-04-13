@@ -1,4 +1,5 @@
 {
   "name": "myapp",
-  "displayName": "myapp"
+  "displayName": "myapp",
+  "backgroundColor": "blue"
 }

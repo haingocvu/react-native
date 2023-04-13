@@ -1,5 +1,5 @@
 import {FC, PropsWithoutRef, useState} from 'react';
-import {Button, TextInput, View, Modal} from 'react-native';
+import {Button, TextInput, View, Modal, Image} from 'react-native';
 
 import {style} from './styles';
 
@@ -28,6 +28,11 @@ const GoalInput: FC<IGoalInputPropps> = props => {
   return (
     <Modal visible={visible} animationType="slide">
       <View style={style.inputContainer}>
+        <Image
+          style={style.imgStyle}
+          alt="goal"
+          source={require('./../../assets/images/goal.png')}
+        />
         <TextInput
           value={goalText}
           placeholder="your course goals"

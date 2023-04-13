@@ -2,14 +2,12 @@ import {StyleSheet} from 'react-native';
 
 const style = StyleSheet.create({
   inputContainer: {
-    width: '80%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'stretch',
     gap: 10,
+    backgroundColor: '#088F8F',
   },
   inputStyle: {
     borderWidth: 2,
@@ -18,7 +16,7 @@ const style = StyleSheet.create({
   },
   buttonStyle: {
     borderWidth: 2,
-    borderColor: 'blue',
+    borderColor: '#00FFFF',
   },
   btnGroup: {
     flexDirection: 'row',
@@ -26,6 +24,12 @@ const style = StyleSheet.create({
   },
   btnItem: {
     flex: 1,
+  },
+  imgStyle: {
+    width: 100,
+    height: 100,
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
 });
 

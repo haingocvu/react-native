@@ -6,7 +6,14 @@
  */
 
 import React, {useState} from 'react';
-import {StyleSheet, View, SafeAreaView, FlatList, Button} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  SafeAreaView,
+  FlatList,
+  Button,
+  StatusBar,
+} from 'react-native';
 import GoalItem from './components/goal-item';
 import GoalInput from './components/goal-input';
 
@@ -38,35 +45,38 @@ function App(): JSX.Element {
   };
 
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <View style={styles.addBtnStyle}>
-          <Button title="Add New Goal" onPress={addNewHandler} />
-        </View>
-        <GoalInput
-          visible={showModal}
-          initValue=""
-          onAddNew={handleAddNew}
-          onCancel={cancelAddHandler}
-        />
-        <View style={styles.goalContainer}>
-          <FlatList
-            data={listGoals}
-            renderItem={({item}) => {
-              console.log(item.id);
-              return (
-                <GoalItem
-                  id={item.id}
-                  text={item.text}
-                  onDelete={handleDeleteItem}
-                />
-              );
-            }}
-            keyExtractor={(item, index) => item.id + index}
+    <>
+      <StatusBar barStyle="default" />
+      <SafeAreaView>
+        <View style={styles.container}>
+          <View style={styles.addBtnStyle}>
+            <Button title="Add New Goal" onPress={addNewHandler} />
+          </View>
+          <GoalInput
+            visible={showModal}
+            initValue=""
+            onAddNew={handleAddNew}
+            onCancel={cancelAddHandler}
           />
+          <View style={styles.goalContainer}>
+            <FlatList
+              data={listGoals}
+              renderItem={({item}) => {
+                console.log(item.id);
+                return (
+                  <GoalItem
+                    id={item.id}
+                    text={item.text}
+                    onDelete={handleDeleteItem}
+                  />
+                );
+              }}
+              keyExtractor={(item, index) => item.id + index}
+            />
+          </View>
         </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </>
   );
 }
 
