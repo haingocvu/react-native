@@ -6,7 +6,7 @@
  */
 
 import React, {useState} from 'react';
-import {StyleSheet, View, SafeAreaView, FlatList} from 'react-native';
+import {StyleSheet, View, SafeAreaView, FlatList, Button} from 'react-native';
 import GoalItem from './components/goal-item';
 import GoalInput from './components/goal-input';
 
@@ -15,7 +15,10 @@ function App(): JSX.Element {
     [],
   );
 
+  const [showModal, setShowModal] = useState(false);
+
   const handleAddNew = (goalText: string) => {
+    setShowModal(false);
     setListGoals(curGoalList => [
       ...curGoalList,
       {id: Math.random().toString(), text: goalText},
@@ -26,10 +29,26 @@ function App(): JSX.Element {
     setListGoals(curList => curList.filter(it => it.id !== id));
   };
 
+  const addNewHandler = () => {
+    setShowModal(true);
+  };
+
+  const cancelAddHandler = () => {
+    setShowModal(false);
+  };
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <GoalInput initValue="" onAddNew={handleAddNew} />
+        <View style={styles.addBtnStyle}>
+          <Button title="Add New Goal" onPress={addNewHandler} />
+        </View>
+        <GoalInput
+          visible={showModal}
+          initValue=""
+          onAddNew={handleAddNew}
+          onCancel={cancelAddHandler}
+        />
         <View style={styles.goalContainer}>
           <FlatList
             data={listGoals}
@@ -59,6 +78,9 @@ const styles = StyleSheet.create({
   },
   goalContainer: {
     flex: 8,
+  },
+  addBtnStyle: {
+    marginBottom: 16,
   },
 });
 
